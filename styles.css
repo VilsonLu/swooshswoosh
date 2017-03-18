@@ -1,17 +1,101 @@
+@font-face {
+    font-family: gotham_bold;
+    src: url(fonts/GothamRoundedBold.otf);
+}
+
+@font-face {
+    font-family: gotham_book;
+    src: url(fonts/GothamRoundedBook.otf);
+}
+
+html{
+    height: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body{
+    height: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
 	background-color: #fafafa;
+	font-family: gotham_book;
+}
+
+.dropdown-menu{
+	width: 100%;
+}
+
+.icon{
+	width: 33px;
+	margin-right: 10px;
+}
+
+.single_detail h4{
+	margin-top: 0px; 
+	margin-bottom: 0px; 
+	font-family: gotham_bold;
+}
+
+.single_detail .caption{
+	font-family: gotham_bold;
+	color: #a7a7a7;
+}
+
+.div_label{
+	font-size: 12;
+	color: #a7a7a7;
+	font-weight: 300;
+}
+
+p.status{
+	font-size: 28;
+}
+
+.sidenav{
+	background-color: #2ac9ad !important;
+	position: fixed;
+  position: fixed;
+}
+
+.sidenav ul li a{
+	color: #85ddcc;
+}
+
+.nav-pills>li.active>a{
+	background-color: #2ac9ad;
+	color: white;
 }
 
 #reply_field{
 	width: 100%;
 	height: 150px;
-	border-style: none;
+	border-width: 2px;
+	border-radius: 4px;
+	border-color: #c6c6c6;
 	padding: 6px;
 	resize: none;
 }
 
 #logo{
+    color: #ff515d;
+    background-color: #ffffff;
+    margin-top: 0;
+    padding: 20px;
+    font-family: gotham_bold;
+}
 
+#dropdownMenu1{
+	color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    width: 100%;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-radius: 0;
+    border: none;
 }
 
 .div_label{
@@ -24,26 +108,27 @@ body{
   -moz-border-radius: 9;
   border-radius: 9px;
   font-family: Arial;
-  color: #39d122;
+  color: #2ac9ad;
   font-size: 14px;
   background: #ffffff;
   padding: 6px 12px 6px 12px;
   text-decoration: none;
-  border-color: 39d122;
+  border-color: #2ac9ad;
   border-style: solid;
   width: 100%;
   margin-bottom: 8px;
 }
 
-.response_btn.suggested{
+.response_btn.send{
   color: #ffffff;
-  background: #39d122;
+  background: #ff515d;
   text-decoration: none;
   border-color: transparent;
+  width: 100%;
 }
 
-.response_btn.suggested:hover {
-  background: #5bb327;
+.response_btn.send:hover {
+  background: #d02f3a;
 }
 
 .content-container {
