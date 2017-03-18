@@ -26,7 +26,11 @@
 
 </head>
 
-<body ng-app="swoosh">
+<body ng-app="swoosh" >
+  <div id="loadingdiv" >
+    <div class="loader"></div>
+  </div>
+
   <nav class="navbar navbar-inverse visible-xs">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -35,7 +39,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>                        
         </button>
-        <a class="navbar-brand" href="#">Logo</a>
+        <a class="navbar-brand" href="#">Crawl</a>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
@@ -52,7 +56,7 @@
   <div class="container-fluid" ng-controller="commentController as commentCtrl">
     <div class="row content" style="height: 100%">
       <div class="col-sm-2 sidenav hidden-xs" style="padding: 0px">
-        <h2 id="logo">Logo</h2>
+        <h2 id="logo">Crawl</h2>
         <ul class="nav nav-pills nav-stacked">
           <li class="active"><a href="#"><img src="assets/complaint.png" class="icon" />Complaints</a></li>
           <li><a href="#"><img src="assets/compliment.png" class="icon" />Compliment</a></li>
@@ -75,24 +79,26 @@
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href ng-click="commentCtrl.selectTab('Baggage')">Baggage</a></li>
-                <li><a href ng-click="commentCtrl.selectTab('Check-in')">Checkin</a></li>
-                <li><a href ng-click="commentCtrl.selectTab('Inflight service')">In-flight Services and Safety</a></li>
-                <li><a href ng-click="commentCtrl.selectTab('Payment')">Payment</a></li>
-                <li><a href ng-click="commentCtrl.selectTab('Flight Schedule')">Flight Schedule and Safety</a></li>
+                <li><a href ng-click="commentCtrl.selectTab('complaint_refund')">Refund</a></li>
+                <li><a href ng-click="commentCtrl.selectTab('complaint_delay')">Delay</a></li>
+                <li><a href ng-click="commentCtrl.selectTab('complaint_website')">Website</a></li>
+                <li><a href ng-click="commentCtrl.selectTab('complaint_customer_service')">Customer Service</a></li>
+                <li><a href ng-click="commentCtrl.selectTab('complaint_general')">General</a></li>
               </ul>
             </div>
 
 
               <div class="divider"></div>
                 <div style="padding: 10px">
-                    <input type="checkbox" name=""> Select All 
+                    <input type="checkbox" id="cb_selectAll"> Select All 
                 </div>
               <div class="divider"></div>
 
 
             <div ng-repeat="comment in commentCtrl.comments">
               <div class="entry" ng-class="{active:commentCtrl.isSelectedComment(comment)}" ng-click="commentCtrl.selectComment(comment)">
+                  <input type="checkbox">
+                  <span>3:04AM</span>
                   <p class="username">{{comment.Username}}</p>
                   <p>{{comment.Message}}</p>
               </div>
@@ -109,18 +115,37 @@
         <div class="card" style="margin-top: 10%" ng-show="commentCtrl.isEmpty()">
           <div class="entry single_detail">
               <h4>{{commentCtrl.selectedComment.Username}}</h4>
-              <p class="caption">Facebook</p>
+              <p class="caption">{{commentCtrl.selectedComment.Source}}</p>
               <p class="status">
                 {{commentCtrl.selectedComment.Message}}
               </p>
               <!-- <textarea id="reply_field" placeholder="Enter text here..."></textarea>                  -->
-                  <div id="suggested_replies">
-                      <p class="div_label">Select template</p>
-                      <button class="response_btn">Yes, you don't. Here, have some candy with your travel tax and double ticket purchase.</button>
-                      <button class="response_btn">If you have any commentsor concerns, please fill up the e-form in Air Asia website.</button>
-                      <textarea id="reply_field"></textarea>
-                      <button class="response_btn send" style="margin-top: 6px">Send reply</button>
+              <div id="suggested_replies">
+                  <p class="div_label">Suggested replies</p>
+                  <div ng-show="commentCtrl.isSelectedCategory(comment, 'complaint_general')">
+                    <button class="response_btn" onclick="btntemplate(this)">General Yes, you don't. Here, have some candy with your travel tax and double ticket purchase.</button>
+                    <button class="response_btn" onclick="btntemplate(this)">If you have any commentsor concerns, please fill up the e-form in Air Asia website.</button>
                   </div>
+                  <div ng-show="commentCtrl.isSelectedCategory(comment,'complaint_delay')">
+                    <button class="response_btn" onclick="btntemplate(this)">Delay Yes, you don't. Here, have some candy with your travel tax and double ticket purchase.</button>
+                    <button class="response_btn" onclick="btntemplate(this)">If you have any commentsor concerns, please fill up the e-form in Air Asia website.</button>
+                  </div>
+                  <div ng-show="commentCtrl.isSelectedCategory(comment,'complaint_website')">
+                    <button class="response_btn" onclick="btntemplate(this)">Website Yes, you don't. Here, have some candy with your travel tax and double ticket purchase.</button>
+                    <button class="response_btn" onclick="btntemplate(this)">If you have any commentsor concerns, please fill up the e-form in Air Asia website.</button>
+                  </div>
+                  <div ng-show="commentCtrl.isSelectedCategory(comment, 'complaint_customer_service')">
+                    <button class="response_btn" onclick="btntemplate(this)">Customer Service Yes, you don't. Here, have some candy with your travel tax and double ticket purchase.</button>
+                    <button class="response_btn" onclick="btntemplate(this)">If you have any commentsor concerns, please fill up the e-form in Air Asia website.</button>
+                  </div>
+                  <div ng-show="commentCtrl.isSelectedCategory(comment, 'complaint_refund')">
+                    <button class="response_btn" onclick="btntemplate(this)">Refund Yes, you don't. Here, have some candy with your travel tax and double ticket purchase.</button>
+                    <button class="response_btn" onclick="btntemplate(this)">If you have any commentsor concerns, please fill up the e-form in Air Asia website.</button>
+                  </div>
+                  <textarea id="reply_field"></textarea>
+                  <button class="response_btn send" style="margin-top: 6px" ng-click="commentCtrl.removeComment(comment)">Send reply</button>
+              </div>
+                  
           </div>
         </div>
         <div class="card" ng-hide="commentCtrl.isEmpty()">
@@ -128,8 +153,17 @@
         </div>
     </div>  
 </div>
-
-
-
 </body>
+<script type="text/javascript">
+  var rep = document.getElementById('reply_field');
+    // $('.response_btn').click(function(){
+    //     alert("!");
+    //     rep.innerHTML = this.innerText;
+    // });
+
+    function btntemplate(v){
+      rep.innerHTML = v.innerText;
+    }
+
+</script>
 </html>

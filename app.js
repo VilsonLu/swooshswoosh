@@ -9,7 +9,7 @@
 			
 			var controller = this;
 			controller.comments = [];
-			controller.selectedComment = [];
+			controller.selectedComment = {};
 
 
 			var view = this;
@@ -45,10 +45,29 @@
 				return false;
 			};
 
+			
+
 			this.isSelectedComment = function(comment){
 				var flag = this.selectedComment.Id === comment.Id;
 				return flag;
 			};
+
+			this.isSelectedCategory = function(comment, category){
+				return this.selectedComment.SubCategory === category;
+			}
+
+			this.removeComment = function(comment){
+
+				var x = 0;
+				for(x=0; x < this.comments.length; x++ ){
+					if(this.comments[x].Id == comment.Id){
+						break;
+					}
+			
+				}
+				this.comments.splice(x,1);
+				this.selectedComment = this.comments[0];
+			}
 
 
 			$http(
