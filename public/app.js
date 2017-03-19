@@ -2,7 +2,6 @@
 
 	var app = angular.module('swoosh', []);
 
-
 	app.controller('commentController', ['$http', '$scope', function($http, $scope){
 			this.category = 'Complaints'
 			this.selectedTab = 'complaint_refund';
@@ -20,7 +19,7 @@
 				controller.isLoading = true;
 				$http(
 					{
-						url: 'http://swoosh-airvolution.azurewebsites.net/api/comment/GetCommentsByCategory',
+						url: 'https://swoosh-airvolution.azurewebsites.net/api/comment/GetCommentsByCategory',
 						method: "GET",
 						params: {category:this.category, subcategory: this.selectedTab},
 						headers: 
@@ -73,7 +72,7 @@
 
 			$http(
 				{
-					url: 'http://swoosh-airvolution.azurewebsites.net/api/comment/GetCommentsByCategory',
+					url: 'https://swoosh-airvolution.azurewebsites.net/api/comment/GetCommentsByCategory',
 					method: "GET",
 					params: {category:this.category, subcategory: this.selectedTab},
 					headers: 

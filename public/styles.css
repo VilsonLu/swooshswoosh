@@ -54,6 +54,10 @@ p.status{
 	font-size: 28;
 }
 
+.container-fluid{
+	padding-left: 0px;
+}
+
 .sidenav{
 	background-color: #2ac9ad !important;
 	position: fixed;
